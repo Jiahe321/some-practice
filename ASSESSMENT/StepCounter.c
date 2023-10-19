@@ -6,12 +6,12 @@ int main(){
     puts("");
     scanf("%c",option);
     switch(option){
-    case 1: break;
-    case 2: break;
-    case 3: break;
-    case 4: break;
-    case 5: break;
-    default:
+    case 'A': break;
+    case 'B': break;
+    case 'C': break;
+    case 'D': break;
+    case 'E': break;
+    default:puts("Please enter the correct choice!");
     }
     
 }
