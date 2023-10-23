@@ -46,8 +46,8 @@ int main() {
     FILE *fp=fopen("FitnessData_2023.csv","r");
     // Make sure that we can open the file.
     if(fp==NULL){
-        puts("Unable to open the file.");
-        return -1;
+        perror("");
+        return 1;
     }
     // This is where we store the data.
     FITNESS_DATA data[100];
