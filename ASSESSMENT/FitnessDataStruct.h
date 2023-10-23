@@ -13,11 +13,13 @@ typedef struct {
 } FITNESS_DATA;
 
 // define functions to be used
-FILE import_file(char filename[], FITNESS_DATA data[], int count);
-void display_total_num(int count);
-void fewest_steps(FITNESS_DATA data[], int count);
-void largest_steps(FITNESS_DATA data[], int count);
-void mean(FITNESS_DATA data[], int count);
-void above500(FITNESS_DATA data[], int count);
+int import_file(char filename[], FITNESS_DATA data[], int *count);
+void display_total_num(int *count);
+void fewest_steps(FITNESS_DATA data[], int *count);
+void largest_steps(FITNESS_DATA data[], int *count);
+void mean(FITNESS_DATA data[], int *count);
+void above500(FITNESS_DATA data[], int *count);
+void tokeniseRecord(const char *input, const char *delimiter,
+                    char *date, char *time, char *steps);
 
 #endif

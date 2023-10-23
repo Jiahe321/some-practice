@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "utils.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "fitnessdatastruct.h": "c"
     }
 }

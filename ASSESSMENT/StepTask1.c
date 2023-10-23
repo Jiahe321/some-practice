@@ -54,8 +54,7 @@ int main() {
     // Count the number of records by num.
     int num=0;
     // Store data temporary.
-    char str[100];
-    char step[15];
+    char str[100], step[15];
     // Scane the file until the end.
     while(fgets(str,sizeof(str),fp)!=NULL){
         // The delimiter is ","
