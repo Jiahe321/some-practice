@@ -7,6 +7,8 @@
 
 // Define any additional variables here
 // Global variables for filename and FITNESS_DATA array
+
+
 int import_file(char filename[], FITNESS_DATA data[], int *count){
     FILE *fp=fopen(filename,"r");
     if (fp == NULL) {
