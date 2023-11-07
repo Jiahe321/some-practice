@@ -50,7 +50,7 @@ int main() {
         return 1;
     }
     // This is where we store the data.
-    FITNESS_DATA data[100];
+    FITNESS_DATA data[1000];
     // Count the number of records by num.
     int num=0;
     // Store data temporary.
@@ -60,13 +60,13 @@ int main() {
         // The delimiter is ","
         tokeniseRecord(str,",",data[num].date,data[num].time,step);
         // Change the char output into integer.
-        data[num].steps= atoi(step);
+        data[num].steps=atoi(step);
         ++num;
     }
     // Print the number.
     printf("Number of records in file: %d\n",num);
     // Print the file.
-    for(int i=0;i<num;++i){
+    for(int i=0;i<3;++i){
         printf("%s/%s/%d\n",data[i].date,data[i].time,data[i].steps);
     }
     fclose(fp);

@@ -1,35 +1,16 @@
-// Use our document.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "FitnessDataStruct.h"
 
-void tokeniseRecord(const char *input, const char *delimiter,
-                    char *date, char *time, char *steps) {
-    // Create a copy of the input string as strtok modifies the string
-    char *inputCopy = strdup(input);
-    
-    // Tokenize the copied string
-    char *token = strtok(inputCopy, delimiter);
-    if (token != NULL) {        strcpy(date, token);
-    }
-    
-    token = strtok(NULL, delimiter);
-    if (token != NULL) {
-        strcpy(time, token);
-    }
-    
-    token = strtok(NULL, delimiter);
-    if (token != NULL) {
-        strcpy(steps, token);
-    }
-    
-    // Free the duplicated string
-    free(inputCopy);
+// Struct moved to header file
 
-}
-
+// Define any additional variables here
+// Global variables for filename and FITNESS_DATA array
 int import_file(char filename[], FITNESS_DATA data[], int *count){
     FILE *fp=fopen(filename,"r");
     if (fp == NULL) {
-        perror("Unable to open the file.");
+        puts("Error: Could not find or open the file.");
         return 1;
     }
     char str[100], step[15];
@@ -38,10 +19,11 @@ int import_file(char filename[], FITNESS_DATA data[], int *count){
         // The delimiter is ","
         tokeniseRecord(str,",",data[*count].date,data[*count].time,step);
         // Change the char output into integer.
-        data[*count].steps= atoi(step);
+        data[*count].steps=atoi(step);
         ++(*count);
     }
     fclose(fp);
+    puts("File successfully loaded.");
     return 0;
 }
 
@@ -78,32 +60,55 @@ void mean(FITNESS_DATA data[], int *count){
 }
 
 void above500(FITNESS_DATA data[], int *count){
-    int start=0,end=0,len=0,f=0;
+    int start=0,end=0,len=0;
     for(int i=0;i<*count;++i){
-        if(data[i].steps>=500){
-            // start counting
-            if(!f) f=1;
-            // continue counting
-            len++;
-        }
+        // counting when steps more than 500
+        if(data[i].steps>500) len++;
         // end counting.
-        else if(f){
+        else if(len){
             // update the longest one
             if(len > end-start){
                 end=i-1;
                 start=i-len;
             }
             len=0;
-            f=0;
         }
     }
     // the last item
-    if(f&&len>end-start){
+    if(len>end-start){
             end=*count-1;
             start=end-len;
     }
     printf("Longest period start: %s %s\n", data[start].date, data[start].time);
     printf("Longest period end: %s %s\n", data[end].date, data[end].time);
+}
+
+// This is your helper function. Do not change it in any way.
+// Inputs: character array representing a row; the delimiter character
+// Ouputs: date character array; time character array; steps character array
+void tokeniseRecord(const char *input, const char *delimiter,
+                    char *date, char *time, char *steps) {
+    // Create a copy of the input string as strtok modifies the string
+    char *inputCopy = strdup(input);
+    
+    // Tokenize the copied string
+    char *token = strtok(inputCopy, delimiter);
+    if (token != NULL) {        strcpy(date, token);
+    }
+    
+    token = strtok(NULL, delimiter);
+    if (token != NULL) {
+        strcpy(time, token);
+    }
+    
+    token = strtok(NULL, delimiter);
+    if (token != NULL) {
+        strcpy(steps, token);
+    }
+    
+    // Free the duplicated string
+    free(inputCopy);
+
 }
 
 int main(){
@@ -112,14 +117,15 @@ int main(){
     char fname[100];
     int f=1;
     while(f){
-        puts("A: Input filename");
-        puts("B: Total records");
-        puts("C: Fewest steps");
-        puts("D: Largest steps");
-        puts("E: Mean step count");
-        puts("F: Longest period");
+        puts("Menu Options:");
+        puts("A: Specify the filename to be imported");
+        puts("B: Display the total number of records in the file");
+        puts("C: Find the date and time of the timeslot with the fewest steps");
+        puts("D: Find the date and time of the timeslot with the largest number of steps");
+        puts("E: Find the mean step count of all the records in the file");
+        puts("F: Find the longest continuous period where the step count is above 500 steps");
         puts("Q: Quit");
-        puts("");
+        printf("Enter choice: ");
         char option;
         scanf("%c",&option);
         getchar();// get rid of extra "\n"
@@ -152,8 +158,7 @@ int main(){
         case 'Q':
             f=0;
             break;
-        default:puts("Please enter the correct choice!");
+        default:puts("Invalid choice. Try again.");
         }
-        puts("");
     }
 }
