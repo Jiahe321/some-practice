@@ -35,7 +35,7 @@ int import_file(char filename[], FitnessData data[], int *count){
     // Scane the file until the end.
     while(fgets(line,sizeof(line),fp)!=NULL){
         // The delimiter is ","
-        tokeniseRecord(line,',',data[*count].date,data[*count].time,data[*count].steps);
+        tokeniseRecord(line,',',data[*count].date,data[*count].time,&data[*count].steps);
         // Change the char output into integer.
         ++(*count);
     }
@@ -58,17 +58,18 @@ void sort(FitnessData data[],int count){
     }
 }
 
-void output_tsv(char filename[], FitnessData data[],int count){
+int output_tsv(char filename[], FitnessData data[],int count){
     FILE *fp=fopen(filename, "w");
     if(fp==NULL){
         printf("Error: Could not find or open the file.");
         return 1;
     }
     for(int i=0;i<count;++i){
-        fprintf("%s\t%s\t%d\t",data[i].date,data[i].steps,data[i].time);
+        fprintf(fp,"%s\t%s\t%d\n",data[i].date,data[i].time,data[i].steps);
     }
     printf("Data sorted and written to %s\n", filename);
     fclose(fp);
+    return 0;
 }
 
 int main(){
@@ -85,7 +86,7 @@ int main(){
     }
     printf("Enter Filename: %s\n", filename);
     //change the .csv into .tsv
-    for(int i=0;i<len(filename);++i){
+    for(int i=0;i<100;++i){
         if(filename[i]=='.'){
             filename[i+1]='t';
             break;
