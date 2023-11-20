@@ -57,8 +57,8 @@ int main(){
         case 'A':
             printf("Input filename: ");
             scanf("%s", fname);
-            getchar();// get rid of extra "\n"
-            if(import_file(fname, data, &count)==1){
+            //getchar();// get rid of extra "\n"
+            if(import_file(fname, data, &count)){
                 return 1;
             }
             break;
