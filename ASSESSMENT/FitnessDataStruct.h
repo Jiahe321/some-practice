@@ -62,7 +62,7 @@ void largest_steps(FITNESS_DATA data[], int *count){
 void mean(FITNESS_DATA data[], int *count){
     int sum=0;
     for(int i=0;i<*count;++i) sum+=data[i].steps;
-    printf("Mean step count: %d\n",sum/(*count));
+    printf("Mean step count: %d\n",(int)((sum*1.0 / *count)+0.5));
 }
 
 void above500(FITNESS_DATA data[], int *count){

@@ -58,7 +58,9 @@ int main(){
             printf("Input filename: ");
             scanf("%s", fname);
             getchar();// get rid of extra "\n"
-            import_file(fname, data, &count);
+            if(import_file(fname, data, &count)==1){
+                f=0;
+            }
             break;
         case 'B':
             display_total_num(&count);
