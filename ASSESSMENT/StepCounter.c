@@ -34,7 +34,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
 }
 
 int main(){
-    FITNESS_DATA data[100];
+    FITNESS_DATA data[32767];
     int count=0;
     char fname[100];
     int f=1;
@@ -49,8 +49,10 @@ int main(){
         puts("Q: Quit");
         printf("Enter choice: ");
         char option;
-        option=getchar();
-        getchar();
+        while(1){
+            if (scanf(" %c", &option) == 1) break;
+            else while (getchar() != '\n') {}
+        }
         switch(option){
         case 'A':
             printf("Input filename: ");

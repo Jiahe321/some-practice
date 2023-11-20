@@ -21,6 +21,7 @@ int import_file(char filename[], FITNESS_DATA data[], int *count){
     }
     char str[100], step[15];
     // Scane the file until the end.
+    *count = 0;
     while(fgets(str,sizeof(str),fp)!=NULL){
         // The delimiter is ","
         tokeniseRecord(str,",",data[*count].date,data[*count].time,step);
