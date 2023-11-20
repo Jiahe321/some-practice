@@ -59,7 +59,7 @@ int main(){
             scanf("%s", fname);
             getchar();// get rid of extra "\n"
             if(import_file(fname, data, &count)==1){
-                f=0;
+                return 1;
             }
             break;
         case 'B':
@@ -83,4 +83,5 @@ int main(){
         default:puts("Invalid choice. Try again.");
         }
     }
+    return 0;
 }
