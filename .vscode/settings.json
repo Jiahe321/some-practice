@@ -3,6 +3,7 @@
         "utils.h": "c",
         "algorithm": "c",
         "fitnessdatastruct.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdio.h": "c"
     }
 }
