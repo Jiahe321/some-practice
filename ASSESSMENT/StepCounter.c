@@ -129,12 +129,8 @@ int main(){
         puts("Q: Quit");
         printf("Enter choice: ");
         char option;
-        scanf("%c",&option);
-        getchar();// get rid of extra "\n"
-        // I based this on a discussion with ChatGPT
-        // When I input an available option
-        // It says that the option unavailable
-        // I cannot understand why until I use ChatGPT
+        option=getchar();
+        getchar();
         switch(option){
         case 'A':
             printf("Input filename: ");
