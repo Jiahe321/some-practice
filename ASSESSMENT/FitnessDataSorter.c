@@ -36,11 +36,15 @@ int import_file(char filename[], FitnessData data[], int *count){
     while(fgets(line,sizeof(line),fp)!=NULL){
         // The delimiter is ","
         tokeniseRecord(line,',',data[*count].date,data[*count].time,&data[*count].steps);
-        // Change the char output into integer.
+        if (strstr(data[*count].date,"-")==NULL||strstr(data[*count].time,":")==NULL||data[*count].steps==0) {
+            // Handle the case when tokeniseRecord returns an error
+            puts("Error: Invalid data format in the file.");
+            fclose(fp);
+            return 1;
+        }
         ++(*count);
     }
     fclose(fp);
-    puts("File successfully loaded.");
     return 0;
 }
 
@@ -54,7 +58,7 @@ void sort(FitnessData data[],int count){
             data[j+1]=data[j];
             --j;
         }
-        data[j + 1] = temp;
+        data[j+1] = temp;
     }
 }
 
@@ -77,21 +81,14 @@ int main(){
     int count=0;
     char filename[100];
     int f=1;
-    puts("Enter Filename:");
+    printf("Enter Filename:");
     scanf("%s",filename);
-    // Try until get the correct filename(return 0)
-    while(import_file(filename,data,&count)){
-        puts("Enter Filename:");
-        scanf("%s",filename);
+    if(import_file(filename,data,&count)){
+        return 1;
     }
-    printf("Enter Filename: %s\n", filename);
     //change the .csv into .tsv
-    for(int i=0;i<100;++i){
-        if(filename[i]=='.'){
-            filename[i+1]='t';
-            break;
-        }
-    }
+    strcat(filename,".tsv");
     sort(data,count);
     output_tsv(filename,data,count);
+    return 0;
 }
